@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Summary</title>
+    <link rel="stylesheet" href="css/results.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="result-container">
+        <h2>Ticket Buyer's Information Summary</h2>
+        <ul id="result-list"></ul>
+        <button class="btn-primary" onclick="window.location.href='forms.html'">Back to Form</button>
+    </div>
+
+    <script>
+        // Fungsi untuk mendapatkan parameter URL
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Mengambil data dari URL dan menampilkan hasilnya
+        const formDataString = getParameterByName('data');
+        const formData = JSON.parse(formDataString);
+
+        const resultList = document.getElementById('result-list');
+        for (const key in formData) {
+            const li = document.createElement('li');
+            const value = formData[key] ? formData[key] : '-';
+            li.innerHTML = `<strong>${key.replace(/([A-Z])/g, ' $1').trim()}:</strong> ${value}`;
+            resultList.appendChild(li);
+        }
+    </script>
+</body>
+</html>
